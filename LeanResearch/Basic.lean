@@ -26,3 +26,5 @@ def b2 : Bool := false
 #eval b1 && b2
 
 #check List
+
+#check let y := 2 + 2; let z := y + y; z * z#eval  let y := 2 + 2; let z := y + y; z * z
