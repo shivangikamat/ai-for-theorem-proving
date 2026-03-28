@@ -60,3 +60,12 @@ example (p q : Prop) : ¬(p ∧ ¬q) → (p → q) :=
     Or.elim (em q)
       (fun hq : q => hq)
       (fun hnq : ¬q => absurd (And.intro hp hnq) h)
+
+inductive Weekday where
+  | sunday : Weekday
+  | monday : Weekday
+  | tuesday : Weekday
+  | wednesday : Weekday
+  | thursday : Weekday
+  | friday : Weekday
+  | saturday : Weekday
