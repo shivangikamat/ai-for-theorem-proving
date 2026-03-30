@@ -69,3 +69,24 @@ inductive Weekday where
   | thursday : Weekday
   | friday : Weekday
   | saturday : Weekday
+
+
+/- Define a function that takes a weekday and returns the next weekday. -/
+def nextDay : Weekday → Weekday
+  | Weekday.sunday => Weekday.monday
+  | Weekday.monday => Weekday.tuesday
+  | Weekday.tuesday => Weekday.wednesday
+  | Weekday.wednesday => Weekday.thursday
+  | Weekday.thursday => Weekday.friday
+  | Weekday.friday => Weekday.saturday
+  | Weekday.saturday => Weekday.sunday
+
+/- Define a function that takes a weekday and returns the previous weekday. -/
+def prevDay : Weekday → Weekday
+  | Weekday.sunday => Weekday.saturday
+  | Weekday.monday => Weekday.sunday
+  | Weekday.tuesday => Weekday.monday
+  | Weekday.wednesday => Weekday.tuesday
+  | Weekday.thursday => Weekday.wednesday
+  | Weekday.friday => Weekday.thursday
+  | Weekday.saturday => Weekday.friday
