@@ -101,3 +101,14 @@ example (d : Weekday) : nextDay (prevDay d) = d :=
   | Weekday.thursday => rfl
   | Weekday.friday => rfl
   | Weekday.saturday => rfl
+
+/-- Prove a property about the prevDay function. -/
+example (d : Weekday) : prevDay (nextDay d) = d :=
+  match d with
+  | Weekday.sunday => rfl
+  | Weekday.monday => rfl
+  | Weekday.tuesday => rfl
+  | Weekday.wednesday => rfl
+  | Weekday.thursday => rfl
+  | Weekday.friday => rfl
+  | Weekday.saturday => rfl
