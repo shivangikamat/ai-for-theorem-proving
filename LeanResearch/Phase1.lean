@@ -18,6 +18,11 @@ deriving Repr
 instance : ToString ProofState where
   toString ps := s!"ProofState(currentGoal: {ps.currentGoal}, localContext: {ps.localContext}, nextTactic: {ps.nextTactic}, theoremIdentifier: {ps.theoremIdentifier}, multipleGoals: {ps.multipleGoals})"
 
+-- Added a helper function to format local context as a string
+
+def formatLocalContext (ctx : LocalContext) : List String :=
+  ctx.foldl (fun acc decl => acc ++ [decl.userName.toString]) []
+
 -- Example function to extract proof-state information
 -- This is a placeholder for integration with tools like LeanDojo
 def extractProofState (mvarId : MVarId) : MetaM ProofState := do
@@ -28,7 +33,7 @@ def extractProofState (mvarId : MVarId) : MetaM ProofState := do
   let goals := [toString goal] -- Placeholder for multiple goals
   return {
     currentGoal := toString goal,
-    localContext := ctx.foldl (fun acc decl => acc ++ [decl.userName.toString]) [],
+    localContext := formatLocalContext ctx,
     nextTactic := nextTactic,
     theoremIdentifier := theoremId,
     multipleGoals := goals
