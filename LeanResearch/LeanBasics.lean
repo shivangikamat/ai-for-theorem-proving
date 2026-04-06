@@ -18,3 +18,8 @@ def multiplyTwoNumbers (a b : Nat) : Nat :=
 
 example : 3 * 3 = 9 :=
   rfl
+
+-- Added an example of a recursive function
+
+def factorial (n : Nat) : Nat :=
+  if n == 0 then 1 else n * factorial (n - 1)
