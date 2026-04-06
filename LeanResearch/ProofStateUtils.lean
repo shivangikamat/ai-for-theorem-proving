@@ -104,6 +104,11 @@ def areAllGoalsEmpty (ps : ProofState) : Bool :=
 def isLocalContextEmpty (ps : ProofState) : Bool :=
   ps.localContext.isEmpty
 
+-- Added a function to get the length of the local context
+
+def localContextLength (ps : ProofState) : Nat :=
+  ps.localContext.length
+
 -- Placeholder for additional utilities
 def placeholderUtility : IO Unit :=
   IO.println "More utilities to be added here."
