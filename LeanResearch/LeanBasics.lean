@@ -21,11 +21,10 @@ example : 3 * 3 = 9 :=
 
 -- Added an example of a recursive function
 
-def fibonacci (n : Nat) : Nat :=
-  if n == 0 then 0
-  else if n == 1 then 1
-  else fibonacci (n - 1) + fibonacci (n - 2)
-  termination_by fibonacci => n
+def factorial (n : Nat) : Nat :=
+  match n with
+  | 0 => 1
+  | _ + 1 => (n + 1) * factorial n
 
 -- Added an example of a list operation
 
