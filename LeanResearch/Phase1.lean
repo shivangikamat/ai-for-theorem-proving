@@ -4,12 +4,19 @@
 import Lean
 open Lean Meta
 
+-- Added comments to clarify the purpose of each field in ProofState
+
 -- Define a minimal proof-state representation
 structure ProofState where
+  /-- The current goal as a string representation --/
   currentGoal : String
+  /-- The local context as a list of strings --/
   localContext : List String
+  /-- The next tactic to be applied --/
   nextTactic : String
+  /-- The identifier for the theorem or file --/
   theoremIdentifier : String
+  /-- A list of all goals, with the first being the active goal --/
   multipleGoals : List String
 
 deriving Repr
