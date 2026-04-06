@@ -19,13 +19,6 @@ def multiplyTwoNumbers (a b : Nat) : Nat :=
 example : 3 * 3 = 9 :=
   rfl
 
--- Added an example of a recursive function
-
-def factorial (n : Nat) : Nat :=
-  match n with
-  | 0 => 1
-  | _ + 1 => (n + 1) * factorial n
-
 -- Added an example of a list operation
 
 def sumList (lst : List Nat) : Nat :=
