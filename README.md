@@ -13,3 +13,11 @@ git clone <repository-url>
 cd lean_research
 lake build
 ```
+
+## Usage
+
+After building the project, you can explore the following modules:
+- `Phase1`: Initial setup for proof-state extraction.
+- `ProofStateUtils`: Utilities for manipulating proof states.
+- `DatasetGenerator`: Functions for generating datasets.
+- `LeanDojoIntegration`: Integration with LeanDojo.
