@@ -24,6 +24,11 @@ def isProofStateEmpty (ps : ProofState) : Bool :=
 def hasMultipleGoals (ps : ProofState) : Bool :=
   ps.multipleGoals.length > 1
 
+-- Added a function to check if a ProofState has exactly one goal
+
+def hasExactlyOneGoal (ps : ProofState) : Bool :=
+  ps.multipleGoals.length == 1
+
 -- Added a function to check if a ProofState has any goals
 
 def hasAnyGoals (ps : ProofState) : Bool :=
