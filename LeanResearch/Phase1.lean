@@ -35,10 +35,8 @@ def extractProofState (mvarId : MVarId) : MetaM ProofState := do
   }
 
 -- Example usage: Extract proof-state for a given metavariable
--- Note: Adjusted to avoid `sorry` dependency
 #eval do
-  let env ← getEnv
-  let mvarId ← mkFreshExprSyntheticOpaqueMVar (mkConst `Nat) none
+  let mvarId ← mkFreshExprSyntheticOpaqueMVar (mkConst `Nat) Name.anonymous
   let proofState ← extractProofState mvarId.mvarId!
   IO.println proofState
 
