@@ -23,3 +23,8 @@ example : 3 * 3 = 9 :=
 
 def factorial (n : Nat) : Nat :=
   if n == 0 then 1 else n * factorial (n - 1)
+
+-- Added an example of a list operation
+
+def sumList (lst : List Nat) : Nat :=
+  lst.foldl (· + ·) 0
