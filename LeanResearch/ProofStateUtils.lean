@@ -99,6 +99,11 @@ def goalCountAsString (ps : ProofState) : String :=
 def areAllGoalsEmpty (ps : ProofState) : Bool :=
   ps.multipleGoals.all String.isEmpty
 
+-- Added a function to check if the local context is empty
+
+def isLocalContextEmpty (ps : ProofState) : Bool :=
+  ps.localContext.isEmpty
+
 -- Placeholder for additional utilities
 def placeholderUtility : IO Unit :=
   IO.println "More utilities to be added here."
