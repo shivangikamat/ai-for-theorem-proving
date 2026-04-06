@@ -23,7 +23,7 @@ example : 3 * 3 = 9 :=
 
 def factorial (n : Nat) : Nat :=
   if n == 0 then 1 else n * factorial (n - 1)
-  termination_by _ => n
+  termination_by factorial => n
 
 -- Added an example of a list operation
 
