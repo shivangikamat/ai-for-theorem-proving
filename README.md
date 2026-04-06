@@ -21,3 +21,10 @@ After building the project, you can explore the following modules:
 - `ProofStateUtils`: Utilities for manipulating proof states.
 - `DatasetGenerator`: Functions for generating datasets.
 - `LeanDojoIntegration`: Integration with LeanDojo.
+
+## Contributing
+
+We welcome contributions to this project! To contribute:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a clear description of your changes.
