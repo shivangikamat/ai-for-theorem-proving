@@ -13,3 +13,8 @@ example : 2 + 2 = 4 :=
 -- Added an example of a simple function
 def multiplyTwoNumbers (a b : Nat) : Nat :=
   a * b
+
+-- Added an example of a simple proof
+
+example : 3 * 3 = 9 :=
+  rfl
