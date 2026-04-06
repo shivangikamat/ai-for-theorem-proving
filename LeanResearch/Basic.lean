@@ -112,3 +112,6 @@ example (d : Weekday) : prevDay (nextDay d) = d :=
   | Weekday.thursday => rfl
   | Weekday.friday => rfl
   | Weekday.saturday => rfl
+
+
+
