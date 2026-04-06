@@ -109,6 +109,11 @@ def isLocalContextEmpty (ps : ProofState) : Bool :=
 def localContextLength (ps : ProofState) : Nat :=
   ps.localContext.length
 
+-- Added a function to check if the next tactic is empty
+
+def isNextTacticEmpty (ps : ProofState) : Bool :=
+  ps.nextTactic.isEmpty
+
 -- Placeholder for additional utilities
 def placeholderUtility : IO Unit :=
   IO.println "More utilities to be added here."
