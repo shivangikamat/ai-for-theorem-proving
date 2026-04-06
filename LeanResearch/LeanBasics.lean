@@ -9,3 +9,7 @@ def addTwoNumbers (a b : Nat) : Nat :=
 -- Example of a theorem
 example : 2 + 2 = 4 :=
   rfl
+
+-- Added an example of a simple function
+def multiplyTwoNumbers (a b : Nat) : Nat :=
+  a * b
