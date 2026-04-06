@@ -50,4 +50,12 @@ def extractProofState (mvarId : MVarId) : MetaM ProofState := do
 def generateDataset : IO Unit := do
   IO.println "Dataset generation not implemented yet."
 
--- End of Phase 1 setup
+-- Added a utility function to generate a default ProofState
+
+def defaultProofState : ProofState := {
+  currentGoal := "",
+  localContext := [],
+  nextTactic := "",
+  theoremIdentifier := "",
+  multipleGoals := []
+}
