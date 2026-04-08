@@ -1,0 +1,6 @@
+{"file":"LeanResearch/Pilot.lean","theorem":"and_comm","step_index":0,"state_main_goal":"a ∧ b → b ∧ a","local_context":[],"next_tactic":"intro h"}
+{"file":"LeanResearch/Pilot.lean","theorem":"and_comm","step_index":1,"state_main_goal":"b ∧ a","local_context":["h : a ∧ b"],"next_tactic":"exact And.intro h.right h.left"}
+{"file":"LeanResearch/Pilot.lean","theorem":"imp_trans","step_index":0,"state_main_goal":"(a → b) → (b → c) → a → c","local_context":[],"next_tactic":"intro hab"}
+{"file":"LeanResearch/Pilot.lean","theorem":"imp_trans","step_index":1,"state_main_goal":"(b → c) → a → c","local_context":["hab : a → b"],"next_tactic":"intro hbc"}
+{"file":"LeanResearch/Pilot.lean","theorem":"imp_trans","step_index":2,"state_main_goal":"a → c","local_context":["hab : a → b","hbc : b → c"],"next_tactic":"intro ha"}
+{"file":"LeanResearch/Pilot.lean","theorem":"imp_trans","step_index":3,"state_main_goal":"c","local_context":["hab : a → b","hbc : b → c","ha : a"],"next_tactic":"exact hbc (hab ha)"}
