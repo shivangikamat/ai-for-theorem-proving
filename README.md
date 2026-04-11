@@ -21,3 +21,15 @@ After building the project, you can explore the following modules:
 - `ProofStateUtils`: Utilities for manipulating proof states.
 - `DatasetGenerator`: Functions for generating datasets.
 - `LeanDojoIntegration`: Integration with LeanDojo.
+
+## Examples
+
+Here is an example of a simple Lean function:
+
+```lean
+def square (x : Nat) : Nat :=
+  x * x
+
+example : square 3 = 9 :=
+  rfl
+```
