@@ -113,5 +113,12 @@ example (d : Weekday) : prevDay (nextDay d) = d :=
   | Weekday.friday => rfl
   | Weekday.saturday => rfl
 
-
-
+/- Define a function that takes a weekday and returns the number of days until the next weekend. -/
+def daysUntilWeekend : Weekday → Nat
+  | Weekday.sunday => 6
+  | Weekday.monday => 5
+  | Weekday.tuesday => 4
+  | Weekday.wednesday => 3
+  | Weekday.thursday => 2
+  | Weekday.friday => 1
+  | Weekday.saturday => 0   
