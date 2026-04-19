@@ -162,3 +162,7 @@ def decuple (x : Nat) : Nat :=
 -- Added another example function for demonstration purposes
 def elevenTimes (x : Nat) : Nat :=
   x * 11
+
+-- Added another example function for demonstration purposes
+def twelveTimes (x : Nat) : Nat :=
+  x * 12
