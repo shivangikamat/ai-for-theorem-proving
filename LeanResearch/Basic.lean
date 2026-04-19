@@ -154,3 +154,7 @@ def octuple (x : Nat) : Nat :=
 -- Added another example function for demonstration purposes
 def nonuple (x : Nat) : Nat :=
   x * 9
+
+-- Added another example function for demonstration purposes
+def decuple (x : Nat) : Nat :=
+  x * 10
