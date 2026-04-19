@@ -77,7 +77,7 @@ def nextDay : Weekday → Weekday
   | Weekday.monday => Weekday.tuesday
   | Weekday.tuesday => Weekday.wednesday
   | Weekday.wednesday => Weekday.thursday
-  | Weekday.thursday => Weekday.friday
+  | Weekday.Thursday => Weekday.friday
   | Weekday.friday => Weekday.saturday
   | Weekday.saturday => Weekday.sunday
 
@@ -126,3 +126,7 @@ def daysUntilWeekend : Weekday → Nat
 -- Added a simple example function for demonstration purposes
 def square (x : Nat) : Nat :=
   x * x
+
+-- Added a new example function for demonstration purposes
+def cube (x : Nat) : Nat :=
+  x * x * x
