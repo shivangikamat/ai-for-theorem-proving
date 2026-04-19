@@ -138,3 +138,7 @@ def quadruple (x : Nat) : Nat :=
 -- Added another example function for demonstration purposes
 def quintuple (x : Nat) : Nat :=
   x * 5
+
+-- Added another example function for demonstration purposes
+def sextuple (x : Nat) : Nat :=
+  x * 6
