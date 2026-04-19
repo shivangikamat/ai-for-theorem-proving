@@ -1,0 +1,15 @@
+file,theorem,step_index,state_main_goal,local_context,next_tactic,tactic_family
+LeanResearch/Pilot.lean,and_comm,0,"a ∧ b → b ∧ a","[]","intro h",intro
+LeanResearch/Pilot.lean,and_comm,1,"b ∧ a","[h : a ∧ b]","exact And.intro h.right h.left",exact
+LeanResearch/Pilot.lean,imp_trans,0,"(a → b) → (b → c) → a → c","[]","intro hab",intro
+LeanResearch/Pilot.lean,imp_trans,1,"(b → c) → a → c","[hab : a → b]","intro hbc",intro
+LeanResearch/Pilot.lean,imp_trans,2,"a → c","[hab : a → b; hbc : b → c]","intro ha",intro
+LeanResearch/Pilot.lean,imp_trans,3,"c","[hab : a → b; hbc : b → c; ha : a]","exact hbc (hab ha)",exact
+LeanResearch/Pilot.lean,imp_trans_apply,0,"(a → b) → (b → c) → a → c","[]","intro hab",intro
+LeanResearch/Pilot.lean,imp_trans_apply,1,"(b → c) → a → c","[hab : a → b]","intro hbc",intro
+LeanResearch/Pilot.lean,imp_trans_apply,2,"a → c","[hab : a → b; hbc : b → c]","intro ha",intro
+LeanResearch/Pilot.lean,imp_trans_apply,3,"c","[hab : a → b; hbc : b → c; ha : a]","apply hbc",apply
+LeanResearch/Pilot.lean,imp_trans_apply,4,"b","[hab : a → b; hbc : b → c; ha : a]","apply hab",apply
+LeanResearch/Pilot.lean,imp_trans_apply,5,"a","[hab : a → b; hbc : b → c; ha : a]","exact ha",exact
+LeanResearch/Pilot.lean,add_zero_rw,0,"n + 0 = n","[n : Nat]","rw [Nat.add_zero]",rw
+LeanResearch/Pilot.lean,and_true_simp,0,"(p ∧ True) ↔ p","[p : Prop]",simp,simp
