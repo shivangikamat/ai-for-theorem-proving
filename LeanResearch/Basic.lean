@@ -158,3 +158,7 @@ def nonuple (x : Nat) : Nat :=
 -- Added another example function for demonstration purposes
 def decuple (x : Nat) : Nat :=
   x * 10
+
+-- Added another example function for demonstration purposes
+def elevenTimes (x : Nat) : Nat :=
+  x * 11
