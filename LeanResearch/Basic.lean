@@ -87,7 +87,7 @@ def prevDay : Weekday → Weekday
   | Weekday.monday => Weekday.sunday
   | Weekday.tuesday => Weekday.monday
   | Weekday.wednesday => Weekday.tuesday
-  | Weekday.thursday => Weekday.wednesday
+  | Weekday.Thursday => Weekday.wednesday
   | Weekday.friday => Weekday.thursday
   | Weekday.saturday => Weekday.friday
 
@@ -98,7 +98,7 @@ example (d : Weekday) : nextDay (prevDay d) = d :=
   | Weekday.monday => rfl
   | Weekday.tuesday => rfl
   | Weekday.wednesday => rfl
-  | Weekday.thursday => rfl
+  | Weekday.Thursday => rfl
   | Weekday.friday => rfl
   | Weekday.saturday => rfl
 
@@ -109,7 +109,7 @@ example (d : Weekday) : prevDay (nextDay d) = d :=
   | Weekday.monday => rfl
   | Weekday.tuesday => rfl
   | Weekday.wednesday => rfl
-  | Weekday.thursday => rfl
+  | Weekday.Thursday => rfl
   | Weekday.friday => rfl
   | Weekday.saturday => rfl
 
@@ -119,6 +119,10 @@ def daysUntilWeekend : Weekday → Nat
   | Weekday.monday => 5
   | Weekday.tuesday => 4
   | Weekday.wednesday => 3
-  | Weekday.thursday => 2
+  | Weekday.Thursday => 2
   | Weekday.friday => 1
-  | Weekday.saturday => 0   
+  | Weekday.saturday => 0
+
+-- Added a simple example function for demonstration purposes
+def square (x : Nat) : Nat :=
+  x * x
