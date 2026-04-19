@@ -130,3 +130,7 @@ def square (x : Nat) : Nat :=
 -- Added a new example function for demonstration purposes
 def cube (x : Nat) : Nat :=
   x * x * x
+
+-- Added another example function for demonstration purposes
+def quadruple (x : Nat) : Nat :=
+  x * 4
