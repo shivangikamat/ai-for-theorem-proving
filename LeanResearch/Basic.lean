@@ -146,3 +146,7 @@ def sextuple (x : Nat) : Nat :=
 -- Added another example function for demonstration purposes
 def septuple (x : Nat) : Nat :=
   x * 7
+
+-- Added another example function for demonstration purposes
+def octuple (x : Nat) : Nat :=
+  x * 8
