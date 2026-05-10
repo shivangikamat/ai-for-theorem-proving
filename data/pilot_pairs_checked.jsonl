@@ -12,3 +12,10 @@
 {"file": "LeanResearch/Pilot.lean", "theorem": "imp_trans_apply", "step_index": 5, "local_context": ["hab : a → b", "hbc : b → c", "ha : a"], "next_tactic": "exact ha", "tactic_family": "exact", "main_goal": "a"}
 {"file": "LeanResearch/Pilot.lean", "theorem": "add_zero_rw", "step_index": 0, "local_context": ["n : Nat"], "next_tactic": "rw [Nat.add_zero]", "tactic_family": "rw", "main_goal": "n + 0 = n"}
 {"file": "LeanResearch/Pilot.lean", "theorem": "and_true_simp", "step_index": 0, "local_context": ["p : Prop"], "next_tactic": "simp", "tactic_family": "simp", "main_goal": "(p ∧ True) ↔ p"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "or_comm", "step_index": 0, "local_context": [], "next_tactic": "intro h", "tactic_family": "intro", "main_goal": "a ∨ b → b ∨ a"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "or_comm", "step_index": 1, "local_context": ["h : a ∨ b"], "next_tactic": "cases h", "tactic_family": "cases", "main_goal": "b ∨ a"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "or_comm", "step_index": 2, "local_context": ["h : a"], "next_tactic": "exact Or.inr h", "tactic_family": "exact", "main_goal": "b ∨ a"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "or_comm", "step_index": 3, "local_context": ["h : b"], "next_tactic": "exact Or.inl h", "tactic_family": "exact", "main_goal": "b ∨ a"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "not_not", "step_index": 0, "local_context": [], "next_tactic": "intro h", "tactic_family": "intro", "main_goal": "¬¬a → a"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "not_not", "step_index": 1, "local_context": ["h : ¬¬a"], "next_tactic": "by_contra hna", "tactic_family": "by_contra", "main_goal": "False"}
+{"file": "LeanResearch/Pilot.lean", "theorem": "not_not", "step_index": 2, "local_context": ["h : ¬¬a", "hna : ¬a"], "next_tactic": "exact h hna", "tactic_family": "exact", "main_goal": "False"}
