@@ -1,4 +1,4 @@
-# lean_research
+# Research in AI for theorem proving
 
 ## Overview
 
