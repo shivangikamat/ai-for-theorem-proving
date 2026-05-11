@@ -54,6 +54,12 @@ theorem irrational_sqrt_two : Irrational (Real.sqrt 2) := by
     exact_mod_cast hq'.symm
   exact hcoprime.not_dvd_left this
 
+theorem coequiv_pos_of_neg_pos (hc : Coequivalence r) (hxy : ¬r y x) (hxz: r x z) : r y z := by
+  have : (r x y) ∨ (r y z) := hc.cotrans hxz
+  cases this
+  case inr => assumption
+  exact cotransitive_pos_of_neg_pos hc.cotransitive (mt hc.symm hxy) hxz
+
 theorem fundamental_theorem_of_algebra {f : Polynomial ℂ} (hf : 0 < f.degree) :
   ∃ z : ℂ, f.IsRoot z := by
   apply Polynomial.exists_root_of_degree_pos hf
