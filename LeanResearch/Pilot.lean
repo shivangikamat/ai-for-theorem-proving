@@ -64,6 +64,11 @@ theorem fundamental_theorem_of_algebra {f : Polynomial ℂ} (hf : 0 < f.degree) 
   ∃ z : ℂ, f.IsRoot z := by
   apply Polynomial.exists_root_of_degree_pos hf
 
+theorem getD_replicate_elem_eq {a} (i n) (h : i < n) :
+    getD (replicate n a) i b = a := by
+  rw [getD, get?_eq_get, get_replicate]
+  simp; simp; assumption
+
 theorem prime_number_theorem :
   ∀ n : ℕ, ∃ p : ℕ, p > n ∧ Nat.Prime p := by
   intro n
