@@ -69,6 +69,12 @@ theorem getD_replicate_elem_eq {a} (i n) (h : i < n) :
   rw [getD, get?_eq_get, get_replicate]
   simp; simp; assumption
 
+/--If the first element of two lists are different, then a sublist relation can be reduced -/
+theorem sublist_cons_neq [DecidableEq α] {l l₂ : List α} (h₁: ¬a = b) (h₂ : a :: l <+ b :: l₂) : a :: l <+ l₂ := by
+  apply isSublist_iff_sublist.mp
+  have := isSublist_iff_sublist.mpr h₂
+  rwa [isSublist, if_neg h₁] at this
+
 theorem prime_number_theorem :
   ∀ n : ℕ, ∃ p : ℕ, p > n ∧ Nat.Prime p := by
   intro n
