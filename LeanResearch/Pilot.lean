@@ -1,4 +1,9 @@
+import Mathlib.Data.Real.Sqrt
+import Mathlib.Data.Polynomial
+import Mathlib.Data.Nat.Prime
+
 namespace LeanResearch
+
 
 theorem id_nat (n : Nat) : n = n := by
   rfl
@@ -32,4 +37,30 @@ theorem add_zero_rw (n : Nat) : n + 0 = n := by
 theorem and_true_simp (p : Prop) : (p ∧ True) ↔ p := by
   simp
 
-end LeanResearch
+theorem irrational_sqrt_two : Irrational (Real.sqrt 2) := by
+  intro h
+  cases h with p q hq
+  have hq' : (p : ℝ) ^ 2 = 2 * q ^ 2 := by
+    rw [← hq, Real.sqrt_sq]
+    exact_mod_cast Nat.zero_lt_bit0 Nat.zero_lt_one
+  have hcoprime : Nat.coprime p q := h.coprime
+  have : 2 ∣ p := by
+    rw [← Nat.dvd_add_iff_left (Nat.dvd_mul_left 2 q)]
+    exact_mod_cast hq'.symm
+  cases this with k hk
+  rw [hk] at hq'
+  have : 2 ∣ q := by
+    rw [← Nat.dvd_add_iff_left (Nat.dvd_mul_left 2 k)]
+    exact_mod_cast hq'.symm
+  exact hcoprime.not_dvd_left this
+
+theorem fundamental_theorem_of_algebra {f : Polynomial ℂ} (hf : 0 < f.degree) :
+  ∃ z : ℂ, f.IsRoot z := by
+  apply Polynomial.exists_root_of_degree_pos hf
+
+theorem prime_number_theorem :
+  ∀ n : ℕ, ∃ p : ℕ, p > n ∧ Nat.Prime p := by
+  intro n
+  have h : ∃ p, p > n ∧ Nat.Prime p :=
+    Nat.exists_infinite_primes n
+  exact h

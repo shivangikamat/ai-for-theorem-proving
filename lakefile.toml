@@ -1,10 +1,11 @@
-name = "lean_research"
+name = "LeanResearch"
 version = "0.1.0"
-defaultTargets = ["lean_research"]
+defaultTargets = ["LeanResearch"]
 
 [[lean_lib]]
 name = "LeanResearch"
 
-[[lean_exe]]
-name = "lean_research"
-root = "Main"
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.28.0"
