@@ -88,3 +88,13 @@ theorem Nat.primeFactorsList_unique {n : ℕ}  {l : List ℕ}  (h₁ : l.prod = 
 theorem UniqueFactorizationMonoid.factors_unique {α : Type u_1}  [CommMonoidWithZero α] [UniqueFactorizationMonoid α]  {f g : Multiset α}  (hf : ∀ x ∈ f, Irreducible x) (hg : ∀ x ∈ g, Irreducible x)  (h : Associated f.prod g.prod) :
   Multiset.Rel Associated f g := by
   apply UniqueFactorizationMonoid.factors_unique hf hg h
+
+theorem getD_reverse {l : List α} (i) (h : i < length l) :
+    getD l.reverse i = getD l (l.length - 1 - i) := by
+    funext a
+    rwa [List.getD_eq_get?, List.get?_reverse, ← List.getD_eq_get?]
+
+theorem getD_replicate_elem_eq {a} (i n) (h : i < n) :
+    getD (replicate n a) i b = a := by
+    rw [getD, get?_eq_get, get_replicate]
+    simp; simp; assumption
