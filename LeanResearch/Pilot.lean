@@ -84,3 +84,7 @@ theorem prime_number_theorem :
 
 theorem Nat.primeFactorsList_unique {n : ℕ}  {l : List ℕ}  (h₁ : l.prod = n) (h₂ : ∀ (p : ℕ), p ∈ l → Prime p) :
   l.Perm n.primeFactorsList
+
+theorem UniqueFactorizationMonoid.factors_unique {α : Type u_1}  [CommMonoidWithZero α] [UniqueFactorizationMonoid α]  {f g : Multiset α}  (hf : ∀ x ∈ f, Irreducible x) (hg : ∀ x ∈ g, Irreducible x)  (h : Associated f.prod g.prod) :
+  Multiset.Rel Associated f g := by
+  apply UniqueFactorizationMonoid.factors_unique hf hg h
