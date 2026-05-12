@@ -81,3 +81,6 @@ theorem prime_number_theorem :
   have h : ∃ p, p > n ∧ Nat.Prime p :=
     Nat.exists_infinite_primes n
   exact h
+
+theorem Nat.primeFactorsList_unique {n : ℕ}  {l : List ℕ}  (h₁ : l.prod = n) (h₂ : ∀ (p : ℕ), p ∈ l → Prime p) :
+  l.Perm n.primeFactorsList
