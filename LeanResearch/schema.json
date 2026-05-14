@@ -1,0 +1,6 @@
+{
+  "id": "integer",
+  "goal": "string",
+  "tactic_family": "string",
+  "proof_steps": ["string"]
+}

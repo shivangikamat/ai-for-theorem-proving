@@ -1,6 +1,7 @@
 import Mathlib.Data.Real.Sqrt
-import Mathlib.Data.Polynomial
-import Mathlib.Data.Nat.Prime
+import Mathlib.Analysis.Complex.Polynomial.Basic
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Nat.Prime.Infinite
 
 namespace LeanResearch
 
@@ -83,7 +84,8 @@ theorem prime_number_theorem :
   exact h
 
 theorem Nat.primeFactorsList_unique {n : ℕ}  {l : List ℕ}  (h₁ : l.prod = n) (h₂ : ∀ (p : ℕ), p ∈ l → Prime p) :
-  l.Perm n.primeFactorsList
+  l.Perm n.primeFactorsList := by
+  simpa using Nat.primeFactorsList_unique h₁ h₂
 
 theorem UniqueFactorizationMonoid.factors_unique {α : Type u_1}  [CommMonoidWithZero α] [UniqueFactorizationMonoid α]  {f g : Multiset α}  (hf : ∀ x ∈ f, Irreducible x) (hg : ∀ x ∈ g, Irreducible x)  (h : Associated f.prod g.prod) :
   Multiset.Rel Associated f g := by
@@ -93,8 +95,3 @@ theorem getD_reverse {l : List α} (i) (h : i < length l) :
     getD l.reverse i = getD l (l.length - 1 - i) := by
     funext a
     rwa [List.getD_eq_get?, List.get?_reverse, ← List.getD_eq_get?]
-
-theorem getD_replicate_elem_eq {a} (i n) (h : i < n) :
-    getD (replicate n a) i b = a := by
-    rw [getD, get?_eq_get, get_replicate]
-    simp; simp; assumption

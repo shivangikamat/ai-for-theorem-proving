@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "goal": "Prove that the square root of 2 is irrational.",
+    "tactic_family": "contradiction",
+    "proof_steps": [
+      "assume sqrt(2) is rational",
+      "express sqrt(2) as a/b in lowest terms",
+      "derive contradiction from parity of a and b"
+    ]
+  },
+  {
+    "id": 2,
+    "goal": "Prove that there are infinitely many primes.",
+    "tactic_family": "contradiction",
+    "proof_steps": [
+      "assume finitely many primes",
+      "construct a number not divisible by any prime",
+      "derive contradiction"
+    ]
+  },
+  {
+    "id": 3,
+    "goal": "Prove that the sum of two even numbers is even.",
+    "tactic_family": "arithmetic",
+    "proof_steps": [
+      "let the numbers be 2a and 2b",
+      "compute their sum as 2(a + b)",
+      "conclude the sum is even"
+    ]
+  }
+]
