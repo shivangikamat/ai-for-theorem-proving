@@ -1,46 +1,101 @@
 # Short Benchmark Note
 
-## Proposed first task
+## Task
 
-I propose **tactic-family prediction** as the first benchmark task.
+First benchmark task: tactic-family prediction.
 
-For each proof step, the model takes:
-- theorem name
-- source file
-- step index
-- current main goal
-- local context
+Input per proof step:
+- theorem
+- file
+- step_index
+- main_goal
+- local_context
 
-and predicts a tactic-family label (for example: `intro`, `apply`, `exact`, `rw`, `simp`).
+Target:
+- tactic_family
 
-## Why this first
+We keep next_tactic text for future next-tactic generation experiments.
 
-- It is simpler and cleaner than full next-tactic prediction.
-- It reduces sensitivity to exact argument formatting.
-- It is easier to evaluate on a small pilot dataset.
+## Final schema
 
-## Evaluation
+Canonical fields in each cleaned JSONL row:
+- file: string
+- theorem: string
+- step_index: integer (0-based)
+- main_goal: string
+- local_context: list of strings
+- next_tactic: string
+- tactic_family: normalized label string
 
-- Primary metric: accuracy.
-- Secondary metric: macro-F1 (especially if class frequencies are imbalanced).
+The JSON Schema is in LeanResearch/schema.json.
 
-## Scope for the pilot
+## Final tactic-family label set
 
-- Keep the representation at single-step granularity.
-- Use the current main goal and local context as inputs.
-- Keep the full tactic text in the dataset for future next-tactic experiments.
+Current pilot label set:
+- intro
+- exact
+- apply
+- rw
+- simp
+- cases
+- have
+- assumption
+- rfl
+- simpa
+- rwa
+- exact_mod_cast
+- by_contra
 
-## Representation decisions
+## Dataset status
 
-Multiple goals:
-- For the pilot, we serialize only the current main goal at each step.
-- If a tactic creates subgoals, each subsequent step is recorded as a new row with its own current main goal.
+Cleaned dataset file:
+- data/pilot_pairs_checked.jsonl
 
-Tactic granularity:
-- We keep two fields: full tactic text (`next_tactic`) and normalized family (`tactic_family`).
-- Current benchmark uses `tactic_family`; `next_tactic` is retained for later next-tactic prediction.
+CSV snapshot for quick inspection:
+- data/pilot_pairs_checked.csv
 
-Normalization of tactics and contexts:
-- `tactic_family` is normalized from the head tactic token (for example, `intro`, `apply`, `exact`, `rw`, `simp`).
-- `local_context` is stored as an ordered list of pretty-printed hypotheses.
-- Goal and context text are kept in Lean-style surface form with minimal rewriting.
+The expanded pilot emphasizes diversity of tactic families rather than raw size.
+
+## Evaluation protocol
+
+- Split strategy: theorem-level random split
+- Default split: 70/30 train/test by theorem
+- Seed: 42
+- Primary metric: accuracy
+- Secondary metric: macro-F1
+
+Theorem-level split avoids placing steps from the same theorem in both train and test.
+
+Latest run summary:
+- rows: 51
+- train/test rows: 36 / 15
+- label distribution: intro 13, exact 10, have 6, apply 5, rw 4, cases 4, simp 2, assumption 2, rfl 1, simpa 1, rwa 1, exact_mod_cast 1, by_contra 1
+
+## Baselines
+
+Implemented in baselines.py:
+- majority_class
+- keyword_heuristic
+- text_naive_bayes (bag-of-words over main_goal + local_context)
+
+Run command:
+
+python baselines.py --data data/pilot_pairs_checked.jsonl --output data/baseline_results.json
+
+Latest baseline results (seed 42, theorem-level split):
+- majority_class: accuracy 0.400, macro-F1 0.095
+- keyword_heuristic: accuracy 0.467, macro-F1 0.194
+- text_naive_bayes: accuracy 0.200, macro-F1 0.067
+
+## Current limitations
+
+- Pilot size is still small; metric variance is high.
+- Some tactics are underrepresented classes.
+- Text-only features ignore proof state internals beyond surface-form goal/context.
+- Data is semi-manual, so there may be stylistic annotation bias.
+
+## Next extensions
+
+- Increase theorem coverage across additional Lean files.
+- Add stratified multi-seed evaluation.
+- Add stronger linear baseline (for example, logistic regression) once dependency setup is fixed.

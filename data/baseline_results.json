@@ -1,0 +1,41 @@
+{
+  "split": {
+    "strategy": "theorem-level random split",
+    "seed": 42,
+    "test_ratio": 0.3,
+    "n_rows": 51,
+    "n_train": 36,
+    "n_test": 15,
+    "n_train_theorems": 12,
+    "n_test_theorems": 5
+  },
+  "label_distribution": {
+    "intro": 13,
+    "exact": 10,
+    "rfl": 1,
+    "apply": 5,
+    "rw": 4,
+    "simp": 2,
+    "cases": 4,
+    "have": 6,
+    "exact_mod_cast": 1,
+    "assumption": 2,
+    "rwa": 1,
+    "simpa": 1,
+    "by_contra": 1
+  },
+  "baselines": {
+    "majority_class": {
+      "accuracy": 0.4,
+      "macro_f1": 0.09523809523809525
+    },
+    "keyword_heuristic": {
+      "accuracy": 0.4666666666666667,
+      "macro_f1": 0.19444444444444442
+    },
+    "text_naive_bayes": {
+      "accuracy": 0.2,
+      "macro_f1": 0.06666666666666667
+    }
+  }
+}

@@ -1,4 +1,4 @@
-file,theorem,step_index,state_main_goal,local_context,next_tactic,tactic_family
+file,theorem,step_index,main_goal,local_context,next_tactic,tactic_family
 LeanResearch/Pilot.lean,and_comm,0,a ∧ b → b ∧ a,[],intro h,intro
 LeanResearch/Pilot.lean,and_comm,1,b ∧ a,[h : a ∧ b],exact And.intro h.right h.left,exact
 LeanResearch/Pilot.lean,id_nat,0,n = n,[n : Nat],rfl,rfl

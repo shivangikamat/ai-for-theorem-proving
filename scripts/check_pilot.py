@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
+import csv
 
 INPUT_FILE = Path("data/pilot_pairs.jsonl")
+OUTPUT_JSONL = Path("data/pilot_pairs_checked.jsonl")
+OUTPUT_CSV = Path("data/pilot_pairs_checked.csv")
 
 BASE_REQUIRED_FIELDS = {
     "theorem",
@@ -13,12 +16,31 @@ BASE_REQUIRED_FIELDS = {
 
 GOAL_FIELDS = ["main_goal", "goal", "state_main_goal"]
 
+TACTIC_FAMILY_MAP = {
+    "intro": "intro",
+    "intros": "intro",
+    "exact": "exact",
+    "apply": "apply",
+    "rw": "rw",
+    "rewrite": "rw",
+    "simp": "simp",
+    "cases": "cases",
+    "have": "have",
+    "assumption": "assumption",
+    "rfl": "rfl",
+    "simpa": "simpa",
+    "rwa": "rwa",
+    "exact_mod_cast": "exact_mod_cast",
+    "by_contra": "by_contra",
+}
+
 
 def extract_tactic_family(tactic: str) -> str:
     tactic = tactic.strip()
     if not tactic:
-        return "UNKNOWN"
-    return tactic.split()[0].strip(";,")
+        return "unknown"
+    head = tactic.split()[0].strip(";,")
+    return TACTIC_FAMILY_MAP.get(head, head)
 
 
 def validate_entry(entry: dict, line_no: int) -> list[str]:
@@ -62,7 +84,19 @@ def normalize_entry(entry: dict) -> dict:
         normalized.get("next_tactic", "")
     )
 
-    return normalized
+    normalized["local_context"] = [str(x) for x in normalized.get("local_context", [])]
+
+    keep = {
+        "file": normalized.get("file", ""),
+        "theorem": normalized.get("theorem", ""),
+        "step_index": normalized.get("step_index", 0),
+        "main_goal": normalized.get("main_goal", ""),
+        "local_context": normalized.get("local_context", []),
+        "next_tactic": normalized.get("next_tactic", ""),
+        "tactic_family": normalized.get("tactic_family", "unknown"),
+    }
+
+    return keep
 
 
 def main() -> None:
@@ -100,12 +134,38 @@ def main() -> None:
     else:
         print("No formatting problems found.")
 
-    output_file = INPUT_FILE.with_name("pilot_pairs_checked.jsonl")
-    with output_file.open("w", encoding="utf-8") as f:
+    with OUTPUT_JSONL.open("w", encoding="utf-8") as f:
         for entry in output_entries:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    print(f"Wrote cleaned file to: {output_file}")
+    with OUTPUT_CSV.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "file",
+                "theorem",
+                "step_index",
+                "main_goal",
+                "local_context",
+                "next_tactic",
+                "tactic_family",
+            ]
+        )
+        for entry in output_entries:
+            writer.writerow(
+                [
+                    entry["file"],
+                    entry["theorem"],
+                    entry["step_index"],
+                    entry["main_goal"],
+                    "[" + "; ".join(entry["local_context"]) + "]",
+                    entry["next_tactic"],
+                    entry["tactic_family"],
+                ]
+            )
+
+    print(f"Wrote cleaned file to: {OUTPUT_JSONL}")
+    print(f"Wrote CSV snapshot to: {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,66 @@
 {
-  "id": "integer",
-  "goal": "string",
-  "tactic_family": "string",
-  "proof_steps": ["string"]
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://leanresearch.local/schemas/pilot_pairs.schema.json",
+  "title": "LeanResearch Pilot Pair",
+  "description": "Single proof-step sample for tactic-family prediction.",
+  "type": "object",
+  "required": [
+    "file",
+    "theorem",
+    "step_index",
+    "main_goal",
+    "local_context",
+    "next_tactic",
+    "tactic_family"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "file": {
+      "type": "string",
+      "description": "Workspace-relative Lean source path."
+    },
+    "theorem": {
+      "type": "string",
+      "description": "Name of the theorem currently being proved."
+    },
+    "step_index": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0-based index inside a theorem proof script."
+    },
+    "main_goal": {
+      "type": "string",
+      "description": "Pretty-printed current main goal before applying next_tactic."
+    },
+    "local_context": {
+      "type": "array",
+      "description": "Ordered list of local hypotheses in pretty-printed form.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_tactic": {
+      "type": "string",
+      "description": "Original Lean tactic text for this step."
+    },
+    "tactic_family": {
+      "type": "string",
+      "enum": [
+        "intro",
+        "exact",
+        "apply",
+        "rw",
+        "simp",
+        "cases",
+        "have",
+        "assumption",
+        "rfl",
+        "simpa",
+        "rwa",
+        "exact_mod_cast",
+        "by_contra"
+      ],
+      "description": "Normalized head-tactic family label."
+    }
+  }
 }
