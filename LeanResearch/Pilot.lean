@@ -1,7 +1,35 @@
+module
+
 import Mathlib.Data.Real.Sqrt
 import Mathlib.Analysis.Complex.Polynomial.Basic
 import Mathlib.Data.Nat.Prime.Basic
+public import Mathlib.Algebra.Algebra.Rat
+public import Mathlib.Data.Nat.Prime.Int
+public import Mathlib.Data.Rat.Sqrt
+public import Mathlib.Data.Real.Sqrt
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.Tactic.IntervalCases
 
+open Rat Real
+
+/-- A real number is irrational if it is not equal to any rational number. -/
+def Irrational (x : ℝ) :=
+  x ∉ Set.range ((↑) : ℚ → ℝ)
+
+theorem irrational_iff_ne_rational (x : ℝ) : Irrational x ↔ ∀ a b : ℤ, b ≠ 0 → x ≠ a / b := by
+  simp [Irrational, Rat.forall, eq_comm]
+
+theorem Irrational.ne_rational {x : ℝ} (hx : Irrational x) (a b : ℤ) : x ≠ a / b := by
+  rintro rfl; exact hx ⟨a / b, by simp⟩
+
+theorem exists_rat_of_not_irrational {x : ℝ} (hx : ¬ Irrational x) : ∃ (q : ℚ), x = q := by
+  grind [Irrational]
+
+/-- A transcendental real number is irrational. -/
+theorem Transcendental.irrational {r : ℝ} (tr : Transcendental ℚ r) : Irrational r := by
+  rintro ⟨a, rfl⟩
+  exact tr (isAlgebraic_algebraMap a)
+  
 namespace LeanResearch
 
 -- 1. Basic Logic and Nat
