@@ -1,14 +1,12 @@
-module
-
 import Mathlib.Data.Real.Sqrt
 import Mathlib.Analysis.Complex.Polynomial.Basic
 import Mathlib.Data.Nat.Prime.Basic
-public import Mathlib.Algebra.Algebra.Rat
-public import Mathlib.Data.Nat.Prime.Int
-public import Mathlib.Data.Rat.Sqrt
-public import Mathlib.Data.Real.Sqrt
-public import Mathlib.RingTheory.Algebraic.Basic
-public import Mathlib.Tactic.IntervalCases
+import Mathlib.Algebra.Algebra.Rat
+import Mathlib.Data.Nat.Prime.Int
+import Mathlib.Data.Rat.Sqrt
+import Mathlib.Data.Real.Sqrt
+import Mathlib.RingTheory.Algebraic.Basic
+import Mathlib.Tactic.IntervalCases
 
 open Rat Real
 
@@ -29,7 +27,7 @@ theorem exists_rat_of_not_irrational {x : ℝ} (hx : ¬ Irrational x) : ∃ (q :
 theorem Transcendental.irrational {r : ℝ} (tr : Transcendental ℚ r) : Irrational r := by
   rintro ⟨a, rfl⟩
   exact tr (isAlgebraic_algebraMap a)
-  
+
 namespace LeanResearch
 
 -- 1. Basic Logic and Nat
