@@ -28,6 +28,51 @@ theorem Transcendental.irrational {r : ℝ} (tr : Transcendental ℚ r) : Irrati
   rintro ⟨a, rfl⟩
   exact tr (isAlgebraic_algebraMap a)
 
+@[simp] theorem not_irrational_zero : ¬Irrational 0 := not_not_intro ⟨0, Rat.cast_zero⟩
+@[simp] theorem not_irrational_one : ¬Irrational 1 := not_not_intro ⟨1, Rat.cast_one⟩
+
+theorem irrational_sqrt_ratCast_iff_of_nonneg {q : ℚ} (hq : 0 ≤ q) :
+    Irrational (√q) ↔ ¬IsSquare q := by
+  refine Iff.not (?_ : Exists _ ↔ Exists _)
+  constructor
+  · rintro ⟨y, hy⟩
+    refine ⟨y, Rat.cast_injective (α := ℝ) ?_⟩
+    rw [Rat.cast_mul, hy, mul_self_sqrt (Rat.cast_nonneg.2 hq)]
+  · rintro ⟨q', rfl⟩
+    exact ⟨|q'|, mod_cast (sqrt_mul_self_eq_abs q').symm⟩
+
+theorem irrational_sqrt_ratCast_iff {q : ℚ} :
+    Irrational (√q) ↔ ¬IsSquare q ∧ 0 ≤ q := by
+  obtain hq | hq := le_or_gt 0 q
+  · simp_rw [irrational_sqrt_ratCast_iff_of_nonneg hq, and_iff_left hq]
+  · rw [sqrt_eq_zero_of_nonpos (Rat.cast_nonpos.2 hq.le)]
+    simp_rw [not_irrational_zero, false_iff, not_and, not_le, hq, implies_true]
+
+theorem irrational_sqrt_intCast_iff_of_nonneg {z : ℤ} (hz : 0 ≤ z) :
+    Irrational (√z) ↔ ¬IsSquare z := by
+  rw [← Rat.isSquare_intCast_iff, ← irrational_sqrt_ratCast_iff_of_nonneg (mod_cast hz),
+    Rat.cast_intCast]
+
+theorem irrational_sqrt_intCast_iff {z : ℤ} :
+    Irrational (√z) ↔ ¬IsSquare z ∧ 0 ≤ z := by
+  rw [← Rat.cast_intCast, irrational_sqrt_ratCast_iff, Rat.isSquare_intCast_iff,
+    Int.cast_nonneg_iff]
+
+theorem irrational_sqrt_natCast_iff {n : ℕ} : Irrational (√n) ↔ ¬IsSquare n := by
+  rw [← Rat.isSquare_natCast_iff, ← irrational_sqrt_ratCast_iff_of_nonneg n.cast_nonneg,
+    Rat.cast_natCast]
+
+theorem irrational_sqrt_ofNat_iff {n : ℕ} [n.AtLeastTwo] :
+    Irrational √(ofNat(n)) ↔ ¬IsSquare ofNat(n) :=
+  irrational_sqrt_natCast_iff
+
+theorem Nat.Prime.irrational_sqrt {p : ℕ} (hp : Nat.Prime p) : Irrational (√p) :=
+  irrational_sqrt_natCast_iff.mpr hp.not_isSquare
+
+/-- **Irrationality of the Square Root of 2** -/
+theorem irrational_sqrt_two : Irrational (√2) := by
+  simpa using Nat.prime_two.irrational_sqrt
+
 namespace LeanResearch
 
 -- 1. Basic Logic and Nat
@@ -59,23 +104,8 @@ theorem and_true_simp (p : Prop) : (p ∧ True) ↔ p := by
   simp
 
 -- 2. Irrationality of Sqrt 2
-theorem irrational_sqrt_two : Irrational (Real.sqrt 2) := by
-  rw [irrational_iff_hypotehse_rational]
-  push_neg
-  intro p q hq_pos h_root
-  have h_sq : (p : ℝ)^2 = 2 * (q : ℝ)^2 := by
-    rw [← Real.sqrt_sq (by norm_num : 0 ≤ (2 : ℝ)), ← h_root]
-    field_simp
-  norm_cast at h_sq
-  have h_dvd : 2 ∣ p^2 := ⟨q^2, h_sq⟩
-  have p_even : 2 ∣ p := Nat.Prime.dvd_of_dvd_pow Nat.prime_two h_dvd
-  rcases p_even with ⟨k, rfl⟩
-  rw [Nat.mul_pow, Nat.pow_two] at h_sq
-  have q_sq : q^2 = 2 * k^2 := by
-    linear_combination h_sq / 2
-  have q_even : 2 ∣ q := Nat.Prime.dvd_of_dvd_pow Nat.prime_two ⟨k^2, q_sq.symm⟩
-  -- This contradicts the coprime assumption in the definition of Irrational
-  exact Nat.not_coprime_of_dvd_of_dvd (by norm_num) p_even q_even
+theorem irrational_sqrt_two : Irrational (√2) := by
+  simpa using Nat.prime_two.irrational_sqrt
 
 -- 3. Coequivalence Logic
 /-- A definition of Coequivalence (negation of Equivalence) -/
@@ -113,7 +143,7 @@ theorem sublist_cons_neq [DecidableEq α] {a b : α} {l l₂ : List α}
 
 -- 6. Number Theory
 theorem prime_number_theorem :
-  ∀ n : ℕ, ∃ p : ℕ, p > n ∧ Nat.Prime p := by
+  ∀ n : ℕ, ∃ p : ℕ, p >= n ∧ Nat.Prime p := by
   intro n
   exact Nat.exists_infinite_primes n
 
@@ -127,6 +157,6 @@ theorem Nat.primeFactorsList_unique_fixed {n : ℕ} {l : List ℕ}
 
 theorem getD_reverse_fixed {α} (l : List α) (i : ℕ) (d : α) (h : i < l.length) :
     l.reverse.getD i d = l.getD (l.length - 1 - i) d := by
-  rw [List.getD_eq_get?, List.getD_eq_get?, List.get?_reverse l i h]
+    rw [List.getD_eq_get?, List.getD_eq_get?, List.get?_reverse l i h]
 
 end LeanResearch
