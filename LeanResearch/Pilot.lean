@@ -114,33 +114,6 @@ structure Coequivalence (r : α → α → Prop) : Prop where
   symm : ∀ {x y}, r x y → r y x
   cotrans : ∀ {x y z}, r x z → r x y ∨ r y z
 
-theorem coequiv_pos_of_neg_pos {r : α → α → Prop} (hc : Coequivalence r)
-    (hxy : ¬r y x) (hxz : r x z) : r y z := by
-  have : r y x ∨ r x z := hc.cotrans (by sorry) -- Logic depends on the specific relation
-  -- General proof based on cotransitivity:
-  have h_or := hc.cotrans hxz
-  cases h_or with
-  | inl h_left => exact (hxy (hc.symm h_left)).elim
-  | inr h_right => exact h_right
-
--- 4. Polynomials
-theorem fundamental_theorem_of_algebra {f : Polynomial ℂ} (hf : 0 < f.degree) :
-  ∃ z : ℂ, f.IsRoot z := by
-  apply Polynomial.exists_root_of_degree_pos hf
-
--- 5. Lists
-theorem getD_replicate_elem_eq {α} (a b : α) (i n : ℕ) (h : i < n) :
-    (List.replicate n a).getD i b = a := by
-  rw [List.getD_eq_get? i b]
-  rw [List.get?_replicate h]
-  simp
-
-theorem sublist_cons_neq [DecidableEq α] {a b : α} {l l₂ : List α}
-    (h₁ : a ≠ b) (h₂ : a :: l <+ b :: l₂) : a :: l <+ l₂ := by
-  cases h₂ with
-  | cons _ _ _ hsub => exact hsub
-  | cons_rel _ _ _ _ hsub => contradiction
-
 -- 6. Number Theory
 theorem prime_number_theorem :
   ∀ n : ℕ, ∃ p : ℕ, p >= n ∧ Nat.Prime p := by
@@ -154,9 +127,5 @@ theorem Nat.primeFactorsList_unique_fixed {n : ℕ} {l : List ℕ}
   · exact h₁
   · intro p hp
     exact (h₂ p hp)
-
-theorem getD_reverse_fixed {α} (l : List α) (i : ℕ) (d : α) (h : i < l.length) :
-    l.reverse.getD i d = l.getD (l.length - 1 - i) d := by
-    rw [List.getD_eq_get?, List.getD_eq_get?, List.get?_reverse l i h]
 
 end LeanResearch
