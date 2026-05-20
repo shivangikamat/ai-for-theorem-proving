@@ -45,6 +45,12 @@ Current pilot label set:
 - rwa
 - exact_mod_cast
 - by_contra
+- constructor
+- left
+- right
+- omega
+- ring
+- contradiction
 
 ## Dataset status
 
@@ -55,6 +61,15 @@ CSV snapshot for quick inspection:
 - data/pilot_pairs_checked.csv
 
 The expanded pilot emphasizes diversity of tactic families rather than raw size.
+
+Raw editable source file:
+- data/pilot_pairs.jsonl
+
+Normalization command:
+
+```bash
+python scripts/check_pilot.py --input data/pilot_pairs.jsonl --output-jsonl data/pilot_pairs_checked.jsonl --output-csv data/pilot_pairs_checked.csv
+```
 
 ## Evaluation protocol
 
@@ -67,9 +82,9 @@ The expanded pilot emphasizes diversity of tactic families rather than raw size.
 Theorem-level split avoids placing steps from the same theorem in both train and test.
 
 Latest run summary:
-- rows: 51
-- train/test rows: 36 / 15
-- label distribution: intro 13, exact 10, have 6, apply 5, rw 4, cases 4, simp 2, assumption 2, rfl 1, simpa 1, rwa 1, exact_mod_cast 1, by_contra 1
+- rows: 68
+- train/test rows: 54 / 14
+- label distribution: intro 16, exact 15, have 6, apply 6, rw 4, cases 4, rfl 2, simp 2, assumption 2, constructor 2, simpa 1, rwa 1, exact_mod_cast 1, by_contra 1, left 1, right 1, omega 1, ring 1, contradiction 1
 
 ## Baselines
 
@@ -80,22 +95,19 @@ Implemented in baselines.py:
 
 Run command:
 
+```bash
 python baselines.py --data data/pilot_pairs_checked.jsonl --output data/baseline_results.json
+```
 
 Latest baseline results (seed 42, theorem-level split):
-- majority_class: accuracy 0.400, macro-F1 0.095
-- keyword_heuristic: accuracy 0.467, macro-F1 0.194
-- text_naive_bayes: accuracy 0.200, macro-F1 0.067
+- majority_class: accuracy 0.143, macro-F1 0.028
+- keyword_heuristic: accuracy 0.643, macro-F1 0.473
+- text_naive_bayes: accuracy 0.357, macro-F1 0.094
 
 ## Current limitations
 
 - Pilot size is still small; metric variance is high.
-- Some tactics are underrepresented classes.
+- Several tactic families are represented by only one or two examples.
 - Text-only features ignore proof state internals beyond surface-form goal/context.
 - Data is semi-manual, so there may be stylistic annotation bias.
-
-## Next extensions
-
-- Increase theorem coverage across additional Lean files.
-- Add stratified multi-seed evaluation.
-- Add stronger linear baseline (for example, logistic regression) once dependency setup is fixed.
+- The keyword heuristic is deliberately hand-written and should be treated as a sanity-check baseline, not a learned model.

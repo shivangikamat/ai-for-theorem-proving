@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import csv
+import argparse
 
 INPUT_FILE = Path("data/pilot_pairs.jsonl")
 OUTPUT_JSONL = Path("data/pilot_pairs_checked.jsonl")
@@ -32,6 +33,12 @@ TACTIC_FAMILY_MAP = {
     "rwa": "rwa",
     "exact_mod_cast": "exact_mod_cast",
     "by_contra": "by_contra",
+    "constructor": "constructor",
+    "left": "left",
+    "right": "right",
+    "omega": "omega",
+    "ring": "ring",
+    "contradiction": "contradiction",
 }
 
 
@@ -100,14 +107,20 @@ def normalize_entry(entry: dict) -> dict:
 
 
 def main() -> None:
-    if not INPUT_FILE.exists():
-        print(f"Error: {INPUT_FILE} does not exist.")
+    parser = argparse.ArgumentParser(description="Validate and normalize the pilot JSONL dataset.")
+    parser.add_argument("--input", type=Path, default=INPUT_FILE, help="Raw JSONL input path.")
+    parser.add_argument("--output-jsonl", type=Path, default=OUTPUT_JSONL, help="Cleaned JSONL output path.")
+    parser.add_argument("--output-csv", type=Path, default=OUTPUT_CSV, help="CSV inspection output path.")
+    args = parser.parse_args()
+
+    if not args.input.exists():
+        print(f"Error: {args.input} does not exist.")
         return
 
     output_entries = []
     all_errors = []
 
-    with INPUT_FILE.open("r", encoding="utf-8") as f:
+    with args.input.open("r", encoding="utf-8") as f:
         for line_no, line in enumerate(f, start=1):
             line = line.strip()
 
@@ -125,7 +138,10 @@ def main() -> None:
                 continue
 
             all_errors.extend(validate_entry(entry, line_no))
-            output_entries.append(normalize_entry(entry))
+            normalized = normalize_entry(entry)
+            if normalized["tactic_family"] == "unknown":
+                all_errors.append(f"Line {line_no}: could not infer tactic_family")
+            output_entries.append(normalized)
 
     if all_errors:
         print("Found problems:")
@@ -134,11 +150,13 @@ def main() -> None:
     else:
         print("No formatting problems found.")
 
-    with OUTPUT_JSONL.open("w", encoding="utf-8") as f:
+    args.output_jsonl.parent.mkdir(parents=True, exist_ok=True)
+    with args.output_jsonl.open("w", encoding="utf-8") as f:
         for entry in output_entries:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    with OUTPUT_CSV.open("w", encoding="utf-8", newline="") as f:
+    args.output_csv.parent.mkdir(parents=True, exist_ok=True)
+    with args.output_csv.open("w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(
             [
@@ -164,8 +182,8 @@ def main() -> None:
                 ]
             )
 
-    print(f"Wrote cleaned file to: {OUTPUT_JSONL}")
-    print(f"Wrote CSV snapshot to: {OUTPUT_CSV}")
+    print(f"Wrote cleaned file to: {args.output_jsonl}")
+    print(f"Wrote CSV snapshot to: {args.output_csv}")
 
 
 if __name__ == "__main__":

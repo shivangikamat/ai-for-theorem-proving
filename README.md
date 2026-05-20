@@ -18,11 +18,22 @@ lake build
 
 ## Usage
 
-After building the project, you can explore the following modules:
-- `Phase1`: Initial setup for proof-state extraction.
-- `ProofStateUtils`: Utilities for manipulating proof states.
-- `DatasetGenerator`: Functions for generating datasets.
-- `LeanDojoIntegration`: Integration with LeanDojo.
+The current pilot benchmark workflow is:
+
+```bash
+python3 scripts/check_pilot.py \
+  --input data/pilot_pairs.jsonl \
+  --output-jsonl data/pilot_pairs_checked.jsonl \
+  --output-csv data/pilot_pairs_checked.csv
+
+python3 baselines.py \
+  --data data/pilot_pairs_checked.jsonl \
+  --output data/baseline_results.json
+```
+
+The cleaned dataset is `data/pilot_pairs_checked.jsonl`, the schema is
+`LeanResearch/schema.json`, and the short benchmark summary is
+`LeanResearch/benchmark_note.md`.
 
 ## LeanDojo
 
@@ -44,4 +55,3 @@ def square (x : Nat) : Nat :=
 example : square 3 = 9 :=
   rfl
 ```
-

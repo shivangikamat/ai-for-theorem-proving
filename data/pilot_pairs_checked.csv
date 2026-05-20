@@ -50,3 +50,20 @@ LeanResearch/Pilot.lean,or_comm,3,b ∨ a,[h : b],exact Or.inl h,exact
 LeanResearch/Pilot.lean,not_not,0,¬¬a → a,[],intro h,intro
 LeanResearch/Pilot.lean,not_not,1,False,[h : ¬¬a],by_contra hna,by_contra
 LeanResearch/Pilot.lean,not_not,2,False,[h : ¬¬a; hna : ¬a],exact h hna,exact
+LeanResearch/Pilot.lean,and_assoc,0,(a ∧ b) ∧ c → a ∧ b ∧ c,[],intro h,intro
+LeanResearch/Pilot.lean,and_assoc,1,a ∧ b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
+LeanResearch/Pilot.lean,and_assoc,2,a,[h : (a ∧ b) ∧ c],exact h.left.left,exact
+LeanResearch/Pilot.lean,and_assoc,3,b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
+LeanResearch/Pilot.lean,and_assoc,4,b,[h : (a ∧ b) ∧ c],exact h.left.right,exact
+LeanResearch/Pilot.lean,and_assoc,5,c,[h : (a ∧ b) ∧ c],exact h.right,exact
+LeanResearch/Pilot.lean,or_intro_left,0,a → a ∨ b,[],intro ha,intro
+LeanResearch/Pilot.lean,or_intro_left,1,a ∨ b,[ha : a],left,left
+LeanResearch/Pilot.lean,or_intro_left,2,a,[ha : a],exact ha,exact
+LeanResearch/Pilot.lean,or_intro_right,0,b → a ∨ b,[],intro hb,intro
+LeanResearch/Pilot.lean,or_intro_right,1,a ∨ b,[hb : b],right,right
+LeanResearch/Pilot.lean,or_intro_right,2,b,[hb : b],exact hb,exact
+LeanResearch/Pilot.lean,nat_linear_example,0,n + m ≤ m + n + 1,[n m : ℕ],omega,omega
+LeanResearch/Pilot.lean,int_ring_example,0,(x + y) ^ 2 = x ^ 2 + 2 * x * y + y ^ 2,[x y : ℤ],ring,ring
+LeanResearch/Pilot.lean,false_elim_example,0,a,[h : False],contradiction,contradiction
+LeanResearch/Pilot.lean,exists_intro_example,0,"∃ m : ℕ, m = n",[n : ℕ],apply Exists.intro n,apply
+LeanResearch/Pilot.lean,exists_intro_example,1,n = n,[n : ℕ],rfl,rfl

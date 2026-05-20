@@ -58,7 +58,13 @@
         "simpa",
         "rwa",
         "exact_mod_cast",
-        "by_contra"
+        "by_contra",
+        "constructor",
+        "left",
+        "right",
+        "omega",
+        "ring",
+        "contradiction"
       ],
       "description": "Normalized head-tactic family label."
     }

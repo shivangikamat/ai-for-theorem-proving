@@ -66,8 +66,16 @@ def heuristic_predict(row: dict, fallback_label: str) -> str:
     text = f"{row['main_goal']} {' '.join(row['local_context'])}".lower()
     goal = row["main_goal"].lower()
 
+    if "false" in text:
+        return "contradiction"
+    if "^" in goal and "=" in goal:
+        return "ring"
+    if ("≤" in goal or "<" in goal) and any(op in goal for op in ["+", "-", "*"]):
+        return "omega"
     if "↔" in goal or " true" in text:
         return "simp"
+    if "∧" in goal and "→" not in goal:
+        return "constructor"
     if "∧" in goal and "→" in goal:
         return "intro"
     if "∀" in goal or "→" in goal:
