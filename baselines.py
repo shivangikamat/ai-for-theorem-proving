@@ -68,10 +68,18 @@ def heuristic_predict(row: dict, fallback_label: str) -> str:
 
     if "false" in text:
         return "contradiction"
+    if goal == "true":
+        return "trivial"
+    if "∃" in goal and " = " in goal:
+        return "use"
+    if re.fullmatch(r"[0-9+* ^()=<>≤≥\\s-]+", goal):
+        return "norm_num"
+    if any(" : " in ctx and " = " in ctx for ctx in row["local_context"]):
+        return "subst"
     if "^" in goal and "=" in goal:
         return "ring"
     if ("≤" in goal or "<" in goal) and any(op in goal for op in ["+", "-", "*"]):
-        return "omega"
+        return "linarith"
     if "↔" in goal or " true" in text:
         return "simp"
     if "∧" in goal and "→" not in goal:

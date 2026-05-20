@@ -31,18 +31,22 @@ LeanResearch/Pilot.lean,coequiv_pos_of_neg_pos,0,r y z,[hc : Coequivalence r; hx
 LeanResearch/Pilot.lean,coequiv_pos_of_neg_pos,1,r y z,[this : (r x y) ∨ (r y z)],cases this,cases
 LeanResearch/Pilot.lean,coequiv_pos_of_neg_pos,2,r y z,[h : r y z],assumption,assumption
 LeanResearch/Pilot.lean,coequiv_pos_of_neg_pos,3,r y z,[h : r x y; hc : Coequivalence r; hxy : ¬r y x; hxz : r x z],exact cotransitive_pos_of_neg_pos hc.cotransitive (mt hc.symm hxy) hxz,exact
-LeanResearch/Pilot.lean,fundamental_theorem_of_algebra,0,"∃ z : ℂ, f.IsRoot z",[f : Polynomial ℂ; hf : 0 < f.degree],apply Polynomial.exists_root_of_degree_pos hf,apply
+LeanResearch/Pilot.lean,fundamental_theorem_of_algebra,0,"∃ z : ℂ, f.IsRoot z",[f : Polynomial ℂ; hf : 0 < f.degree],apply Complex.exists_root hf,apply
 LeanResearch/Pilot.lean,getD_replicate_elem_eq,0,getD (replicate n a) i b = a,[i n : Nat; h : i < n],"rw [getD, get?_eq_get, get_replicate]",rw
 LeanResearch/Pilot.lean,getD_replicate_elem_eq,1,a = a,[h : i < n],simp,simp
 LeanResearch/Pilot.lean,getD_replicate_elem_eq,2,i < n,[h : i < n],assumption,assumption
-LeanResearch/Pilot.lean,sublist_cons_neq,0,a :: l <+ l₂,[h₁ : ¬a = b; h₂ : a :: l <+ b :: l₂],apply isSublist_iff_sublist.mp,apply
-LeanResearch/Pilot.lean,sublist_cons_neq,1,a :: l <+ l₂,[h₁ : ¬a = b; h₂ : a :: l <+ b :: l₂],have := isSublist_iff_sublist.mpr h₂,have
-LeanResearch/Pilot.lean,sublist_cons_neq,2,a :: l <+ l₂,[this : IsSublist (a :: l) (b :: l₂); h₁ : ¬a = b],"rwa [isSublist, if_neg h₁] at this",rwa
+LeanResearch/Pilot.lean,sublist_cons_neq,0,List.Sublist (a :: l) l₂,[h₁ : ¬a = b; h₂ : List.Sublist (a :: l) (b :: l₂)],apply List.Sublist.of_cons_of_ne h₁ h₂,apply
 LeanResearch/Pilot.lean,prime_number_theorem,0,"∀ n : ℕ, ∃ p : ℕ, p > n ∧ Nat.Prime p",[],intro n,intro
 LeanResearch/Pilot.lean,prime_number_theorem,1,"∃ p : ℕ, p > n ∧ Nat.Prime p",[n : ℕ],"have h : ∃ p, p > n ∧ Nat.Prime p := Nat.exists_infinite_primes n",have
 LeanResearch/Pilot.lean,prime_number_theorem,2,"∃ p : ℕ, p > n ∧ Nat.Prime p","[h : ∃ p, p > n ∧ Nat.Prime p]",exact h,exact
-LeanResearch/Pilot.lean,Nat.primeFactorsList_unique,0,l.Perm n.primeFactorsList,"[h₁ : l.prod = n; h₂ : ∀ (p : ℕ), p ∈ l → Prime p]",simpa using Nat.primeFactorsList_unique h₁ h₂,simpa
-LeanResearch/Pilot.lean,UniqueFactorizationMonoid.factors_unique,0,Multiset.Rel Associated f g,"[hf : ∀ x ∈ f, Irreducible x; hg : ∀ x ∈ g, Irreducible x; h : Associated f.prod g.prod]",apply UniqueFactorizationMonoid.factors_unique hf hg h,apply
+LeanResearch/Pilot.lean,Nat.primeFactorsList_unique_fixed,0,l.Perm n.primeFactorsList,"[h₁ : l.prod = n; h₂ : ∀ p ∈ l, Nat.Prime p]",apply Nat.primeFactorsList_unique,apply
+LeanResearch/Pilot.lean,polynomial_factorization_30,0,(Polynomial.X^2 * (Polynomial.X^3 + Polynomial.X + 1)).1 = (30).factorization,[],have h : (.X^2 : Polynomial ℕ) * (.X^3 + .X + 1) = .X^2 + .X^3 + .X^5 := by ring,have
+LeanResearch/Pilot.lean,polynomial_factorization_30,1,(Polynomial.X^2 * (Polynomial.X^3 + Polynomial.X + 1)).1 = (30).factorization,[h : (.X^2 : Polynomial ℕ) * (.X^3 + .X + 1) = .X^2 + .X^3 + .X^5],rw [h],rw
+LeanResearch/Pilot.lean,polynomial_factorization_30,2,(.X^2 + .X^3 + .X^5 : Polynomial ℕ).1 = (30).factorization,[h : (.X^2 : Polynomial ℕ) * (.X^3 + .X + 1) = .X^2 + .X^3 + .X^5],have : Finsupp.single 2 1 + Finsupp.single 3 1 + Finsupp.single 5 1 = Nat.factorization 30 := by,have
+LeanResearch/Pilot.lean,polynomial_factorization_30,3,(.X^2 + .X^3 + .X^5 : Polynomial ℕ).1 = (30).factorization,[this : Finsupp.single 2 1 + Finsupp.single 3 1 + Finsupp.single 5 1 = Nat.factorization 30],"simp_all only [Polynomial.toFinsupp_add, Polynomial.toFinsupp_X_pow]",simp_all
+LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,0,Function.Bijective (1 / 2 : ℚ).3,[],constructor,constructor
+LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,1,Function.Injective (1 / 2 : ℚ).3,[],simp [Function.Injective],simp
+LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,2,Function.Surjective (1 / 2 : ℚ).3,[],simp [Function.Surjective],simp
 LeanResearch/Pilot.lean,or_comm,0,a ∨ b → b ∨ a,[],intro h,intro
 LeanResearch/Pilot.lean,or_comm,1,b ∨ a,[h : a ∨ b],cases h,cases
 LeanResearch/Pilot.lean,or_comm,2,b ∨ a,[h : a],exact Or.inr h,exact
@@ -62,8 +66,19 @@ LeanResearch/Pilot.lean,or_intro_left,2,a,[ha : a],exact ha,exact
 LeanResearch/Pilot.lean,or_intro_right,0,b → a ∨ b,[],intro hb,intro
 LeanResearch/Pilot.lean,or_intro_right,1,a ∨ b,[hb : b],right,right
 LeanResearch/Pilot.lean,or_intro_right,2,b,[hb : b],exact hb,exact
-LeanResearch/Pilot.lean,nat_linear_example,0,n + m ≤ m + n + 1,[n m : ℕ],omega,omega
+LeanResearch/Pilot.lean,int_linear_ineq,0,x + y ≤ y + x + 1,[x y : ℤ],linarith,linarith
 LeanResearch/Pilot.lean,int_ring_example,0,(x + y) ^ 2 = x ^ 2 + 2 * x * y + y ^ 2,[x y : ℤ],ring,ring
 LeanResearch/Pilot.lean,false_elim_example,0,a,[h : False],contradiction,contradiction
 LeanResearch/Pilot.lean,exists_intro_example,0,"∃ m : ℕ, m = n",[n : ℕ],apply Exists.intro n,apply
 LeanResearch/Pilot.lean,exists_intro_example,1,n = n,[n : ℕ],rfl,rfl
+LeanResearch/Pilot.lean,true_intro_example,0,True,[],trivial,trivial
+LeanResearch/Pilot.lean,false_implies_anything,0,False → a,[],intro h,intro
+LeanResearch/Pilot.lean,false_implies_anything,1,a,[h : False],cases h,cases
+LeanResearch/Pilot.lean,disj_of_left_and_right,0,a ∧ b → c ∨ a,[],intro h,intro
+LeanResearch/Pilot.lean,disj_of_left_and_right,1,c ∨ a,[h : a ∧ b],right,right
+LeanResearch/Pilot.lean,disj_of_left_and_right,2,a,[h : a ∧ b],exact h.left,exact
+LeanResearch/Pilot.lean,exists_zero_add,0,"∃ m : ℕ, m + n = n",[n : ℕ],use 0,use
+LeanResearch/Pilot.lean,exists_zero_add,1,0 + n = n,[n : ℕ],simp,simp
+LeanResearch/Pilot.lean,nat_two_plus_two,0,2 + 2 = 4,[],norm_num,norm_num
+LeanResearch/Pilot.lean,eq_subst_example,0,a + 1 = b + 1,[a b : Nat; h : a = b],subst a,subst
+LeanResearch/Pilot.lean,eq_subst_example,1,b + 1 = b + 1,[b : Nat],rfl,rfl

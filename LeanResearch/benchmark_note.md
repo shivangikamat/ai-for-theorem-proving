@@ -37,20 +37,23 @@ Current pilot label set:
 - apply
 - rw
 - simp
+- simp_all
 - cases
 - have
 - assumption
 - rfl
-- simpa
-- rwa
 - exact_mod_cast
 - by_contra
 - constructor
 - left
 - right
-- omega
+- linarith
 - ring
 - contradiction
+- trivial
+- use
+- norm_num
+- subst
 
 ## Dataset status
 
@@ -82,9 +85,10 @@ python scripts/check_pilot.py --input data/pilot_pairs.jsonl --output-jsonl data
 Theorem-level split avoids placing steps from the same theorem in both train and test.
 
 Latest run summary:
-- rows: 68
-- train/test rows: 54 / 14
-- label distribution: intro 16, exact 15, have 6, apply 6, rw 4, cases 4, rfl 2, simp 2, assumption 2, constructor 2, simpa 1, rwa 1, exact_mod_cast 1, by_contra 1, left 1, right 1, omega 1, ring 1, contradiction 1
+- rows: 83
+- theorem declarations covered: 31
+- train/test rows: 59 / 24
+- label distribution: intro 18, exact 16, have 7, apply 6, rw 5, simp 5, cases 5, rfl 3, constructor 3, assumption 2, right 2, exact_mod_cast 1, simp_all 1, by_contra 1, left 1, linarith 1, ring 1, contradiction 1, trivial 1, use 1, norm_num 1, subst 1
 
 ## Baselines
 
@@ -100,9 +104,9 @@ python baselines.py --data data/pilot_pairs_checked.jsonl --output data/baseline
 ```
 
 Latest baseline results (seed 42, theorem-level split):
-- majority_class: accuracy 0.143, macro-F1 0.028
-- keyword_heuristic: accuracy 0.643, macro-F1 0.473
-- text_naive_bayes: accuracy 0.357, macro-F1 0.094
+- majority_class: accuracy 0.125, macro-F1 0.019
+- keyword_heuristic: accuracy 0.250, macro-F1 0.212
+- text_naive_bayes: accuracy 0.250, macro-F1 0.097
 
 ## Current limitations
 

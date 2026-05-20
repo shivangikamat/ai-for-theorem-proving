@@ -51,20 +51,23 @@
         "apply",
         "rw",
         "simp",
+        "simp_all",
         "cases",
         "have",
         "assumption",
         "rfl",
-        "simpa",
-        "rwa",
         "exact_mod_cast",
         "by_contra",
         "constructor",
         "left",
         "right",
-        "omega",
+        "linarith",
         "ring",
-        "contradiction"
+        "contradiction",
+        "trivial",
+        "use",
+        "norm_num",
+        "subst"
       ],
       "description": "Normalized head-tactic family label."
     }

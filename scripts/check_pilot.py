@@ -25,6 +25,7 @@ TACTIC_FAMILY_MAP = {
     "rw": "rw",
     "rewrite": "rw",
     "simp": "simp",
+    "simp_all": "simp_all",
     "cases": "cases",
     "have": "have",
     "assumption": "assumption",
@@ -36,9 +37,13 @@ TACTIC_FAMILY_MAP = {
     "constructor": "constructor",
     "left": "left",
     "right": "right",
-    "omega": "omega",
+    "linarith": "linarith",
     "ring": "ring",
     "contradiction": "contradiction",
+    "trivial": "trivial",
+    "use": "use",
+    "norm_num": "norm_num",
+    "subst": "subst",
 }
 
 
