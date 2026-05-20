@@ -74,7 +74,6 @@ theorem irrational_sqrt_ofNat_iff {n : ℕ} [n.AtLeastTwo] :
 theorem Nat.Prime.irrational_sqrt {p : ℕ} (hp : Nat.Prime p) : Irrational (√p) :=
   irrational_sqrt_natCast_iff.mpr hp.not_isSquare
 
-/-- **Irrationality of the Square Root of 2** -/
 theorem irrational_sqrt_two : Irrational (√2) := by
   simpa using Nat.prime_two.irrational_sqrt
 
