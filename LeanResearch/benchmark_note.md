@@ -32,28 +32,30 @@ The JSON Schema is in LeanResearch/schema.json.
 ## Final tactic-family label set
 
 Current pilot label set:
-- intro
-- exact
 - apply
+- assumption
+- by_contra
+- cases
+- constructor
+- contradiction
+- exact
+- exact_mod_cast
+- grind
+- have
+- intro
+- left
+- linarith
+- obtain
+- refine
+- rfl
+- right
+- ring
+- rintro
 - rw
 - simp
 - simp_all
-- cases
-- have
-- assumption
-- rfl
-- exact_mod_cast
-- by_contra
-- constructor
-- left
-- right
-- linarith
-- ring
-- contradiction
-- trivial
-- use
-- norm_num
-- subst
+- simp_rw
+- term
 
 ## Dataset status
 
@@ -85,10 +87,10 @@ python scripts/check_pilot.py --input data/pilot_pairs.jsonl --output-jsonl data
 Theorem-level split avoids placing steps from the same theorem in both train and test.
 
 Latest run summary:
-- rows: 83
-- theorem declarations covered: 31
-- train/test rows: 59 / 24
-- label distribution: intro 18, exact 16, have 7, apply 6, rw 5, simp 5, cases 5, rfl 3, constructor 3, assumption 2, right 2, exact_mod_cast 1, simp_all 1, by_contra 1, left 1, linarith 1, ring 1, contradiction 1, trivial 1, use 1, norm_num 1, subst 1
+- rows: 92
+- unique theorem names covered: 38
+- train/test rows: 55 / 37
+- label distribution: exact 17, intro 16, rw 9, have 7, apply 6, simp 5, term 4, constructor 4, cases 4, rintro 3, refine 2, rfl 2, assumption 2, grind 1, obtain 1, simp_rw 1, left 1, right 1, by_contra 1, contradiction 1, linarith 1, ring 1, exact_mod_cast 1, simp_all 1
 
 ## Baselines
 
@@ -104,9 +106,9 @@ python baselines.py --data data/pilot_pairs_checked.jsonl --output data/baseline
 ```
 
 Latest baseline results (seed 42, theorem-level split):
-- majority_class: accuracy 0.125, macro-F1 0.019
-- keyword_heuristic: accuracy 0.250, macro-F1 0.212
-- text_naive_bayes: accuracy 0.250, macro-F1 0.097
+- majority_class: accuracy 0.162, macro-F1 0.016
+- keyword_heuristic: accuracy 0.270, macro-F1 0.103
+- text_naive_bayes: accuracy 0.216, macro-F1 0.046
 
 ## Current limitations
 

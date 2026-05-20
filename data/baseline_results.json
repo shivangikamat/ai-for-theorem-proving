@@ -3,48 +3,50 @@
     "strategy": "theorem-level random split",
     "seed": 42,
     "test_ratio": 0.3,
-    "n_rows": 83,
-    "n_train": 59,
-    "n_test": 24,
-    "n_train_theorems": 22,
-    "n_test_theorems": 9
+    "n_rows": 92,
+    "n_train": 55,
+    "n_test": 37,
+    "n_train_theorems": 27,
+    "n_test_theorems": 11
   },
   "label_distribution": {
-    "intro": 18,
-    "exact": 16,
-    "rfl": 3,
-    "apply": 6,
-    "rw": 5,
     "simp": 5,
-    "cases": 5,
+    "rintro": 3,
+    "exact": 17,
+    "grind": 1,
+    "term": 4,
+    "refine": 2,
+    "constructor": 4,
+    "obtain": 1,
+    "simp_rw": 1,
+    "rw": 9,
+    "rfl": 2,
+    "intro": 16,
+    "apply": 6,
+    "cases": 4,
+    "left": 1,
+    "right": 1,
+    "by_contra": 1,
+    "contradiction": 1,
+    "linarith": 1,
+    "ring": 1,
     "have": 7,
     "exact_mod_cast": 1,
     "assumption": 2,
-    "simp_all": 1,
-    "constructor": 3,
-    "by_contra": 1,
-    "left": 1,
-    "right": 2,
-    "linarith": 1,
-    "ring": 1,
-    "contradiction": 1,
-    "trivial": 1,
-    "use": 1,
-    "norm_num": 1,
-    "subst": 1
+    "simp_all": 1
   },
   "baselines": {
     "majority_class": {
-      "accuracy": 0.125,
-      "macro_f1": 0.018518518518518517
+      "accuracy": 0.16216216216216217,
+      "macro_f1": 0.016415868673050615
     },
     "keyword_heuristic": {
-      "accuracy": 0.25,
-      "macro_f1": 0.2123133276979431
+      "accuracy": 0.2702702702702703,
+      "macro_f1": 0.10316985645933015
     },
     "text_naive_bayes": {
-      "accuracy": 0.25,
-      "macro_f1": 0.09714285714285714
+      "accuracy": 0.21621621621621623,
+      "macro_f1": 0.04611528822055138
     }
   }
 }

@@ -20,12 +20,14 @@ GOAL_FIELDS = ["main_goal", "goal", "state_main_goal"]
 TACTIC_FAMILY_MAP = {
     "intro": "intro",
     "intros": "intro",
+    "rintro": "rintro",
     "exact": "exact",
     "apply": "apply",
     "rw": "rw",
     "rewrite": "rw",
     "simp": "simp",
     "simp_all": "simp_all",
+    "simp_rw": "simp_rw",
     "cases": "cases",
     "have": "have",
     "assumption": "assumption",
@@ -40,10 +42,13 @@ TACTIC_FAMILY_MAP = {
     "linarith": "linarith",
     "ring": "ring",
     "contradiction": "contradiction",
-    "trivial": "trivial",
-    "use": "use",
-    "norm_num": "norm_num",
-    "subst": "subst",
+    "grind": "grind",
+    "refine": "refine",
+    "obtain": "obtain",
+    "not_not_intro": "term",
+    "irrational_sqrt_natCast_iff": "term",
+    "irrational_sqrt_natCast_iff.mpr": "term",
+    "term": "term",
 }
 
 
@@ -51,6 +56,8 @@ def extract_tactic_family(tactic: str) -> str:
     tactic = tactic.strip()
     if not tactic:
         return "unknown"
+    if ":=" not in tactic and "\n" not in tactic and tactic[0].isupper():
+        return "term"
     head = tactic.split()[0].strip(";,")
     return TACTIC_FAMILY_MAP.get(head, head)
 

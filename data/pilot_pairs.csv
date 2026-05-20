@@ -1,7 +1,27 @@
 file,theorem,step_index,main_goal,local_context,next_tactic,tactic_family
+LeanResearch/Pilot.lean,irrational_iff_ne_rational,0,"Irrational x ↔ ∀ a b : ℤ, b ≠ 0 → x ≠ a / b",[x : ℝ],"simp [Irrational, Rat.forall, eq_comm]",simp
+LeanResearch/Pilot.lean,Irrational.ne_rational,0,x ≠ a / b,[hx : Irrational x; a b : ℤ],rintro rfl,rintro
+LeanResearch/Pilot.lean,Irrational.ne_rational,1,False,[hx : Irrational (a / b : ℝ)],"exact hx ⟨a / b, by simp⟩",exact
+LeanResearch/Pilot.lean,exists_rat_of_not_irrational,0,"∃ q : ℚ, x = q",[hx : ¬ Irrational x],grind [Irrational],grind
+LeanResearch/Pilot.lean,Transcendental.irrational,0,Irrational r,[tr : Transcendental ℚ r],"rintro ⟨a, rfl⟩",rintro
+LeanResearch/Pilot.lean,Transcendental.irrational,1,False,[tr : Transcendental ℚ (algebraMap ℚ ℝ a)],exact tr (isAlgebraic_algebraMap a),exact
+LeanResearch/Pilot.lean,not_irrational_zero,0,¬Irrational 0,[],"not_not_intro ⟨0, Rat.cast_zero⟩",term
+LeanResearch/Pilot.lean,not_irrational_one,0,¬Irrational 1,[],"not_not_intro ⟨1, Rat.cast_one⟩",term
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff_of_nonneg,0,Irrational (√q) ↔ ¬IsSquare q,[q : ℚ; hq : 0 ≤ q],refine Iff.not (?_ : Exists _ ↔ Exists _),refine
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff_of_nonneg,1,Exists _ ↔ Exists _,[q : ℚ; hq : 0 ≤ q],constructor,constructor
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff_of_nonneg,2,"∀ y, _ → _",[q : ℚ; hq : 0 ≤ q],"rintro ⟨y, hy⟩",rintro
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff_of_nonneg,3,"∃ y, _",[y : ℚ; hy : q = y * y],"refine ⟨y, Rat.cast_injective (α := ℝ) ?_⟩",refine
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff,0,Irrational (√q) ↔ ¬IsSquare q ∧ 0 ≤ q,[q : ℚ],obtain hq | hq := le_or_gt 0 q,obtain
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff,1,Irrational (√q) ↔ ¬IsSquare q ∧ 0 ≤ q,[hq : 0 ≤ q],"simp_rw [irrational_sqrt_ratCast_iff_of_nonneg hq, and_iff_left hq]",simp_rw
+LeanResearch/Pilot.lean,irrational_sqrt_ratCast_iff,2,Irrational (√q) ↔ ¬IsSquare q ∧ 0 ≤ q,[hq : 0 > q],rw [sqrt_eq_zero_of_nonpos (Rat.cast_nonpos.2 hq.le)],rw
+LeanResearch/Pilot.lean,irrational_sqrt_intCast_iff_of_nonneg,0,Irrational (√z) ↔ ¬IsSquare z,[z : ℤ; hz : 0 ≤ z],"rw [← Rat.isSquare_intCast_iff, ← irrational_sqrt_ratCast_iff_of_nonneg (mod_cast hz), Rat.cast_intCast]",rw
+LeanResearch/Pilot.lean,irrational_sqrt_intCast_iff,0,Irrational (√z) ↔ ¬IsSquare z ∧ 0 ≤ z,[z : ℤ],"rw [← Rat.cast_intCast, irrational_sqrt_ratCast_iff, Rat.isSquare_intCast_iff, Int.cast_nonneg_iff]",rw
+LeanResearch/Pilot.lean,irrational_sqrt_natCast_iff,0,Irrational (√n) ↔ ¬IsSquare n,[n : ℕ],"rw [← Rat.isSquare_natCast_iff, ← irrational_sqrt_ratCast_iff_of_nonneg n.cast_nonneg, Rat.cast_natCast]",rw
+LeanResearch/Pilot.lean,irrational_sqrt_ofNat_iff,0,Irrational √(ofNat(n)) ↔ ¬IsSquare ofNat(n),[n : ℕ; n.AtLeastTwo],irrational_sqrt_natCast_iff,term
+LeanResearch/Pilot.lean,Nat.Prime.irrational_sqrt,0,Irrational (√p),[p : ℕ; hp : Nat.Prime p],irrational_sqrt_natCast_iff.mpr hp.not_isSquare,term
+LeanResearch/Pilot.lean,id_nat,0,n = n,[n : Nat],rfl,rfl
 LeanResearch/Pilot.lean,and_comm,0,a ∧ b → b ∧ a,[],intro h,intro
 LeanResearch/Pilot.lean,and_comm,1,b ∧ a,[h : a ∧ b],exact And.intro h.right h.left,exact
-LeanResearch/Pilot.lean,id_nat,0,n = n,[n : Nat],rfl,rfl
 LeanResearch/Pilot.lean,imp_trans,0,(a → b) → (b → c) → a → c,[],intro hab,intro
 LeanResearch/Pilot.lean,imp_trans,1,(b → c) → a → c,[hab : a → b],intro hbc,intro
 LeanResearch/Pilot.lean,imp_trans,2,a → c,[hab : a → b; hbc : b → c],intro ha,intro
@@ -17,6 +37,30 @@ LeanResearch/Pilot.lean,imp_trans_apply,4,b,[hab : a → b; hbc : b → c; ha : 
 LeanResearch/Pilot.lean,imp_trans_apply,5,a,[hab : a → b; hbc : b → c; ha : a],exact ha,exact
 LeanResearch/Pilot.lean,add_zero_rw,0,n + 0 = n,[n : Nat],rw [Nat.add_zero],rw
 LeanResearch/Pilot.lean,and_true_simp,0,(p ∧ True) ↔ p,[p : Prop],simp,simp
+LeanResearch/Pilot.lean,and_assoc,0,(a ∧ b) ∧ c → a ∧ b ∧ c,[],intro h,intro
+LeanResearch/Pilot.lean,and_assoc,1,a ∧ b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
+LeanResearch/Pilot.lean,and_assoc,2,a,[h : (a ∧ b) ∧ c],exact h.left.left,exact
+LeanResearch/Pilot.lean,and_assoc,3,b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
+LeanResearch/Pilot.lean,and_assoc,4,b,[h : (a ∧ b) ∧ c],exact h.left.right,exact
+LeanResearch/Pilot.lean,and_assoc,5,c,[h : (a ∧ b) ∧ c],exact h.right,exact
+LeanResearch/Pilot.lean,or_comm,0,a ∨ b → b ∨ a,[],intro h,intro
+LeanResearch/Pilot.lean,or_comm,1,b ∨ a,[h : a ∨ b],cases h,cases
+LeanResearch/Pilot.lean,or_comm,2,b ∨ a,[h : a],exact Or.inr h,exact
+LeanResearch/Pilot.lean,or_comm,3,b ∨ a,[h : b],exact Or.inl h,exact
+LeanResearch/Pilot.lean,or_intro_left,0,a → a ∨ b,[],intro ha,intro
+LeanResearch/Pilot.lean,or_intro_left,1,a ∨ b,[ha : a],left,left
+LeanResearch/Pilot.lean,or_intro_left,2,a,[ha : a],exact ha,exact
+LeanResearch/Pilot.lean,or_intro_right,0,b → a ∨ b,[],intro hb,intro
+LeanResearch/Pilot.lean,or_intro_right,1,a ∨ b,[hb : b],right,right
+LeanResearch/Pilot.lean,or_intro_right,2,b,[hb : b],exact hb,exact
+LeanResearch/Pilot.lean,not_not,0,¬¬a → a,[],intro h,intro
+LeanResearch/Pilot.lean,not_not,1,False,[h : ¬¬a],by_contra hna,by_contra
+LeanResearch/Pilot.lean,not_not,2,False,[h : ¬¬a; hna : ¬a],exact h hna,exact
+LeanResearch/Pilot.lean,false_elim_example,0,a,[h : False],contradiction,contradiction
+LeanResearch/Pilot.lean,exists_intro_example,0,"∃ m : ℕ, m = n",[n : ℕ],apply Exists.intro n,apply
+LeanResearch/Pilot.lean,exists_intro_example,1,n = n,[n : ℕ],rfl,rfl
+LeanResearch/Pilot.lean,int_linear_ineq,0,x + y ≤ y + x + 1,[x y : ℤ],linarith,linarith
+LeanResearch/Pilot.lean,int_ring_example,0,(x + y) ^ 2 = x ^ 2 + 2 * x * y + y ^ 2,[x y : ℤ],ring,ring
 LeanResearch/Pilot.lean,irrational_sqrt_two,0,Irrational (Real.sqrt 2),[],intro h,intro
 LeanResearch/Pilot.lean,irrational_sqrt_two,1,False,"[h : ∃ p q, Nat.Coprime p q ∧ (Real.sqrt 2) = p / q]",cases h with p q hq,cases
 LeanResearch/Pilot.lean,irrational_sqrt_two,2,False,[p q : ℕ; hq : Nat.Coprime p q ∧ (Real.sqrt 2) = p / q],have hq' : (p : ℝ) ^ 2 = 2 * q ^ 2 := by,have
@@ -47,38 +91,3 @@ LeanResearch/Pilot.lean,polynomial_factorization_30,3,(.X^2 + .X^3 + .X^5 : Poly
 LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,0,Function.Bijective (1 / 2 : ℚ).3,[],constructor,constructor
 LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,1,Function.Injective (1 / 2 : ℚ).3,[],simp [Function.Injective],simp
 LeanResearch/Pilot.lean,one_half_third_coord_is_bijection,2,Function.Surjective (1 / 2 : ℚ).3,[],simp [Function.Surjective],simp
-LeanResearch/Pilot.lean,or_comm,0,a ∨ b → b ∨ a,[],intro h,intro
-LeanResearch/Pilot.lean,or_comm,1,b ∨ a,[h : a ∨ b],cases h,cases
-LeanResearch/Pilot.lean,or_comm,2,b ∨ a,[h : a],exact Or.inr h,exact
-LeanResearch/Pilot.lean,or_comm,3,b ∨ a,[h : b],exact Or.inl h,exact
-LeanResearch/Pilot.lean,not_not,0,¬¬a → a,[],intro h,intro
-LeanResearch/Pilot.lean,not_not,1,False,[h : ¬¬a],by_contra hna,by_contra
-LeanResearch/Pilot.lean,not_not,2,False,[h : ¬¬a; hna : ¬a],exact h hna,exact
-LeanResearch/Pilot.lean,and_assoc,0,(a ∧ b) ∧ c → a ∧ b ∧ c,[],intro h,intro
-LeanResearch/Pilot.lean,and_assoc,1,a ∧ b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
-LeanResearch/Pilot.lean,and_assoc,2,a,[h : (a ∧ b) ∧ c],exact h.left.left,exact
-LeanResearch/Pilot.lean,and_assoc,3,b ∧ c,[h : (a ∧ b) ∧ c],constructor,constructor
-LeanResearch/Pilot.lean,and_assoc,4,b,[h : (a ∧ b) ∧ c],exact h.left.right,exact
-LeanResearch/Pilot.lean,and_assoc,5,c,[h : (a ∧ b) ∧ c],exact h.right,exact
-LeanResearch/Pilot.lean,or_intro_left,0,a → a ∨ b,[],intro ha,intro
-LeanResearch/Pilot.lean,or_intro_left,1,a ∨ b,[ha : a],left,left
-LeanResearch/Pilot.lean,or_intro_left,2,a,[ha : a],exact ha,exact
-LeanResearch/Pilot.lean,or_intro_right,0,b → a ∨ b,[],intro hb,intro
-LeanResearch/Pilot.lean,or_intro_right,1,a ∨ b,[hb : b],right,right
-LeanResearch/Pilot.lean,or_intro_right,2,b,[hb : b],exact hb,exact
-LeanResearch/Pilot.lean,int_linear_ineq,0,x + y ≤ y + x + 1,[x y : ℤ],linarith,linarith
-LeanResearch/Pilot.lean,int_ring_example,0,(x + y) ^ 2 = x ^ 2 + 2 * x * y + y ^ 2,[x y : ℤ],ring,ring
-LeanResearch/Pilot.lean,false_elim_example,0,a,[h : False],contradiction,contradiction
-LeanResearch/Pilot.lean,exists_intro_example,0,"∃ m : ℕ, m = n",[n : ℕ],apply Exists.intro n,apply
-LeanResearch/Pilot.lean,exists_intro_example,1,n = n,[n : ℕ],rfl,rfl
-LeanResearch/Pilot.lean,true_intro_example,0,True,[],trivial,trivial
-LeanResearch/Pilot.lean,false_implies_anything,0,False → a,[],intro h,intro
-LeanResearch/Pilot.lean,false_implies_anything,1,a,[h : False],cases h,cases
-LeanResearch/Pilot.lean,disj_of_left_and_right,0,a ∧ b → c ∨ a,[],intro h,intro
-LeanResearch/Pilot.lean,disj_of_left_and_right,1,c ∨ a,[h : a ∧ b],right,right
-LeanResearch/Pilot.lean,disj_of_left_and_right,2,a,[h : a ∧ b],exact h.left,exact
-LeanResearch/Pilot.lean,exists_zero_add,0,"∃ m : ℕ, m + n = n",[n : ℕ],use 0,use
-LeanResearch/Pilot.lean,exists_zero_add,1,0 + n = n,[n : ℕ],simp,simp
-LeanResearch/Pilot.lean,nat_two_plus_two,0,2 + 2 = 4,[],norm_num,norm_num
-LeanResearch/Pilot.lean,eq_subst_example,0,a + 1 = b + 1,[a b : Nat; h : a = b],subst a,subst
-LeanResearch/Pilot.lean,eq_subst_example,1,b + 1 = b + 1,[b : Nat],rfl,rfl
